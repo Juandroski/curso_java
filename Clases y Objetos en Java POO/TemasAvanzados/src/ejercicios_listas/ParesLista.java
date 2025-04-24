@@ -10,7 +10,8 @@ Escribe código para crear una nueva lista que contenga solo los números pares 
 Pista: Puedes usar un bucle for y una condición if.*/
 public class ParesLista {
     public static void main(String[] args) {
-        ArrayList<Integer> listaNumeros = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16));
+        //ArrayList<Integer> listaNumeros = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16));
+        var listaNumeros = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16));
         ArrayList<Integer> listaPares = new ArrayList<>();
         for (int numero: listaNumeros) {
                 if(numero % 2 != 0){
