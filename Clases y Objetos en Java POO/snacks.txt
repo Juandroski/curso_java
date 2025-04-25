@@ -1,0 +1,5 @@
+1,papas,70.0
+2,cheve,80.0
+3,sabritones,65.0
+4,cacahuates,30.0
+5,coca,35.0

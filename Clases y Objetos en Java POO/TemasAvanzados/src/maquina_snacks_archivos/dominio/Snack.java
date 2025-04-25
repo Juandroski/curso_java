@@ -50,6 +50,10 @@ public class Snack implements Serializable {
                 '}';
     }
 
+    public String ecribirSnack(){
+        return idSnack + "," + nombre + "," + precio;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
