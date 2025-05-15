@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 public class Conexion {
     public static Connection getConexion(){
         Connection conexion = null;
-        var baseDatos = "zona_fit_db";
-        var url = "jdbc:mysql://localhost:3306/" + baseDatos;
-        var usuario = "root";
-        var password = "admin";
+        var baseDatos = "aforeglobal";
+        var url = "jdbc:postgresql://10.30.118.37:5432/" + baseDatos;
+        var usuario = "sysaforeglobal";
+        var password = "a2901ba525795f1fd311642f98c9f160";
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
             conexion = DriverManager.getConnection(url, usuario, password);
         }catch (Exception e){
             System.out.println("Error al conectarnos a la BD: " + e.getMessage());
