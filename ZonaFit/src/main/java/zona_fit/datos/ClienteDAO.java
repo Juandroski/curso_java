@@ -2,6 +2,8 @@ package zona_fit.datos;
 
 import zona_fit.conexion.Conexion;
 import zona_fit.dominio.Cliente;
+
+//import java.lang.runtime.TemplateRuntime;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +18,7 @@ public class ClienteDAO implements IClienteDAO{
         PreparedStatement ps;
         ResultSet rs;
         Connection con = getConexion();
-        var sql = "SELECT * FROM cliente ORDER BY id";
+        var sql = "SELECT * FROM gmcliente ORDER BY id";
         try{
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -71,11 +73,37 @@ public class ClienteDAO implements IClienteDAO{
 
     @Override
     public boolean agregarCliente(Cliente cliente) {
+        PreparedStatement ps;
+        Connection con = getConexion();
+        String sql = "INSERT INTO gmcliente(nombre, apellido, membresia) "
+                + " VALUES(?, ?, ?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1,cliente.getNombre());
+            ps.setString(2,cliente.getApellido());
+            ps.setInt(3, cliente.getMembresia());
+            ps.execute();
+            return true;
+
+        }catch (Exception e){
+            System.out.println("Error al agregar cliente " + e.getMessage());
+        }finally {
+            try {
+                con.close();
+            }catch (Exception e){
+                System.out.println("Error al cerrar la conexion " + e.getMessage());
+            }
+
+        }
         return false;
     }
 
     @Override
     public boolean modificarCliente(Cliente cliente) {
+        PreparedStatement ps;
+        Connection con = getConexion();
+        var sql = "UPDATE gmcliente SET nombre =?, apellido=?, membresia = ? " +
+                " WHERE id = ?";
         return false;
     }
 
@@ -87,22 +115,33 @@ public class ClienteDAO implements IClienteDAO{
     public static void main(String[] args) {
 
         IClienteDAO clienteDao = new ClienteDAO();
-        // Listar clientes
-        //System.out.println("*** Listar Clientes ***");
 
-        //var clientes = clienteDao.listarClientes();
-        //clientes.forEach(System.out::println);
 
         //Buscar por ID
-        var cliente1 = new Cliente(3);
-        System.out.println("Cliente antes de la busqueda: " + cliente1);
+        //var cliente1 = new Cliente(3);
+        //System.out.println("Cliente antes de la busqueda: " + cliente1);
 
-        var encontrado = clienteDao.buscarClientePorId(cliente1);
-        if(encontrado){
-            System.out.println("Cliente encontrado: "+ cliente1);
+        //var encontrado = clienteDao.buscarClientePorId(cliente1);
+        //if(encontrado){
+        //    System.out.println("Cliente encontrado: "+ cliente1);
+        //}else{
+        //    System.out.println("No se encontro registro: "+ cliente1);
+        //}
+
+        //AGREGAR CLIENTE
+        var nuevoCliente = new Cliente("Jose","Leopoldo", 300);
+        var agregado = clienteDao.agregarCliente(nuevoCliente);
+        if(agregado){
+            System.out.println("Cliente agregado: " + nuevoCliente);
         }else{
-            System.out.println("No se encontro registro: "+ cliente1);
+            System.out.println("No se agrego el cliente");
         }
+
+        // Listar clientes
+        System.out.println("*** Listar Clientes ***");
+
+        var clientes = clienteDao.listarClientes();
+        clientes.forEach(System.out::println);
 
     }
 }
