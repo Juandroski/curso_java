@@ -104,11 +104,44 @@ public class ClienteDAO implements IClienteDAO{
         Connection con = getConexion();
         var sql = "UPDATE gmcliente SET nombre =?, apellido=?, membresia = ? " +
                 " WHERE id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1,cliente.getNombre());
+            ps.setString(2,cliente.getApellido());
+            ps.setInt(3,cliente.getMembresia());
+            ps.setInt(4,cliente.getId());
+            ps.execute();
+            return true;
+        }catch(Exception e){
+            System.out.println("Error al actualizar " + e.getMessage());
+        }finally {
+            try{
+                con.close();
+            }catch (Exception e){
+                System.out.println("Error al cerrar conexion " + e.getMessage());
+            }
+        }
         return false;
     }
 
     @Override
     public boolean eliminarCliente(Cliente cliente) {
+        PreparedStatement ps;
+        Connection con = getConexion();
+        String sql = "DELETE FROM gmcliente WHERE id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,cliente.getId());
+            ps.execute();
+        }catch (Exception e){
+            System.out.println("Error al eliminar el cliente: " + e.getMessage());
+        }finally {
+            try {
+                con.close();
+            }catch (Exception e){
+                System.out.println("Error al cerrar la conexion: " + e.getMessage());
+            }
+        }
         return false;
     }
 
@@ -129,14 +162,21 @@ public class ClienteDAO implements IClienteDAO{
         //}
 
         //AGREGAR CLIENTE
-        var nuevoCliente = new Cliente("Jose","Leopoldo", 300);
+        /*var nuevoCliente = new Cliente("Jose","Leopoldo", 300);
         var agregado = clienteDao.agregarCliente(nuevoCliente);
         if(agregado){
             System.out.println("Cliente agregado: " + nuevoCliente);
         }else{
             System.out.println("No se agrego el cliente");
-        }
+        }*/
 
+        //Modificar cliente
+        var modificarCliente = new Cliente(4,"Leopardo","reyes",99);
+        var modificado = clienteDao.modificarCliente(modificarCliente);
+        if(modificado)
+            System.out.println("Cliente modificaco: " + modificarCliente);
+        else
+            System.out.println("No se modifico cliente: " + modificarCliente);
         // Listar clientes
         System.out.println("*** Listar Clientes ***");
 
