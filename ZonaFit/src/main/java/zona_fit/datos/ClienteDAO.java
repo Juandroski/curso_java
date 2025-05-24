@@ -146,7 +146,7 @@ public class ClienteDAO implements IClienteDAO{
         return false;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         IClienteDAO clienteDao = new ClienteDAO();
 
@@ -169,7 +169,7 @@ public class ClienteDAO implements IClienteDAO{
             System.out.println("Cliente agregado: " + nuevoCliente);
         }else{
             System.out.println("No se agrego el cliente");
-        }*/
+        }
 
         //Eliminar cliente
 
@@ -182,17 +182,17 @@ public class ClienteDAO implements IClienteDAO{
 
 
         //Modificar cliente
-       /* var modificarCliente = new Cliente(4,"Leopardo","reyes",99);
+        var modificarCliente = new Cliente(4,"Leopardo","reyes",99);
         var modificado = clienteDao.modificarCliente(modificarCliente);
         if(modificado)
             System.out.println("Cliente modificaco: " + modificarCliente);
         else
-            System.out.println("No se modifico cliente: " + modificarCliente);*/
+            System.out.println("No se modifico cliente: " + modificarCliente);
         // Listar clientes
         System.out.println("*** Listar Clientes ***");
 
         var clientes = clienteDao.listarClientes();
         clientes.forEach(System.out::println);
 
-    }
+    }*/
 }
